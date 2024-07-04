@@ -1,5 +1,6 @@
 package model.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -10,14 +11,14 @@ public class Income {
 	private Integer category;
 	private Double value;
 	private Integer installment = 1;
-	private Date dueDate;
+	private LocalDate dueDate;
 	private String description;
 
 	public Income() {
 	}
 
 	// Credit
-	public Income(Integer category, Double value, Integer installment, Date dueDate, String description) {
+	public Income(Integer category, Double value, Integer installment, LocalDate dueDate, String description) {
 		this.id = ++lastID;
 		this.category = category;
 		this.value = value;
@@ -27,7 +28,7 @@ public class Income {
 	}
 
 	// Debit
-	public Income(Integer category, Double value, Date dueDate, String description) {
+	public Income(Integer category, Double value, LocalDate dueDate, String description) {
 		this.id = ++lastID;
 		this.category = category;
 		this.value = value;
@@ -63,11 +64,11 @@ public class Income {
 		this.installment = installment;
 	}
 
-	public Date getDueDate() {
+	public LocalDate getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(Date dueDate) {
+	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}
 

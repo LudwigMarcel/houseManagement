@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import model.entities.Expense;
 import model.entities.Income;
@@ -17,8 +18,15 @@ public class JsonHandler {
 
     private static final String EXPENSES_FILE_PATH = "expenses.json";
     private static final String INCOMES_FILE_PATH = "incomes.json";
-    private ObjectMapper mapper = new ObjectMapper();
+    
+    private ObjectMapper mapper;
 
+    public JsonHandler() {
+        mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+    }
+
+    
     public void saveData(List<Expense> expenses, List<Income> incomes) {
         DataWrapper dataWrapper = new DataWrapper(expenses, incomes);
         try {

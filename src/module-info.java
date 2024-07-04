@@ -14,6 +14,7 @@ module houseManagement {
 	requires javafx.graphics;
 	requires com.fasterxml.jackson.databind;
 	requires junit;
+	requires com.fasterxml.jackson.datatype.jsr310;
 	
 	opens gui;
 	opens util to com.fasterxml.jackson.databind;

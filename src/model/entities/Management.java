@@ -1,8 +1,8 @@
 package model.entities;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import util.JsonHandler;
@@ -23,12 +23,11 @@ public class Management {
 	// Create Methods
 	public void addExpense(Expense expense) {
 		if (expense.getInstallment() > 1) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(expense.getDueDate());
-			for (int i = 0; i < (expense.getInstallment()); i++) {
+			LocalDate dueDate = expense.getDueDate();
+			for (int i = 0; i < expense.getInstallment(); i++) {
 				expenses.add(new Expense(expense.getCategory(), expense.getTransactionType(), expense.getValue(),
-						expense.getInstallment(), calendar.getTime(), expense.getDescription()));
-				calendar.add(Calendar.MONTH, 1);
+						expense.getInstallment(), dueDate, expense.getDescription()));
+				dueDate = dueDate.plusMonths(1);
 			}
 		} else {
 			expenses.add(expense);
@@ -38,12 +37,11 @@ public class Management {
 
 	public void addIncome(Income income) {
 		if (income.getInstallment() > 1) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(income.getDueDate());
-			for (int i = 0; i < (income.getInstallment()); i++) {
-				incomes.add(new Income(income.getCategory(), income.getValue(), income.getInstallment(),
-						calendar.getTime(), income.getDescription()));
-				calendar.add(Calendar.MONTH, 1);
+			LocalDate dueDate = income.getDueDate();
+			for (int i = 0; i < income.getInstallment(); i++) {
+				incomes.add(new Income(income.getCategory(), income.getValue(), income.getInstallment(), dueDate,
+						income.getDescription()));
+				dueDate = dueDate.plusMonths(1);
 			}
 		} else {
 			incomes.add(income);
@@ -53,16 +51,16 @@ public class Management {
 
 	// Read Methods
 	public Double getSubTotalExpense() {
-		return getSubTotalExpense(Calendar.getInstance());
+		return getSubTotalExpense(LocalDate.now());
 	}
 
-	public Double getSubTotalExpense(Calendar calendar) {
+	public Double getSubTotalExpense(LocalDate date) {
 		Double subTotal = 0.0;
+		int year = date.getYear();
+		Month month = date.getMonth();
 		for (Expense expense : expenses) {
-			Calendar expenseCalendar = Calendar.getInstance();
-			expenseCalendar.setTime(expense.getDueDate());
-			if (expenseCalendar.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)
-					&& expenseCalendar.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
+			LocalDate dueDate = expense.getDueDate();
+			if (dueDate.getYear() == year && dueDate.getMonth() == month) {
 				subTotal += expense.getValue();
 			}
 		}
@@ -70,15 +68,15 @@ public class Management {
 	}
 
 	public Double getSubTotalExpenseYear() {
-		return getSubTotalExpenseYear(Calendar.getInstance());
+		return getSubTotalExpenseYear(LocalDate.now());
 	}
 
-	public Double getSubTotalExpenseYear(Calendar calendar) {
+	public Double getSubTotalExpenseYear(LocalDate date) {
 		Double subTotal = 0.0;
+		int year = date.getYear();
 		for (Expense expense : expenses) {
-			Calendar expenseCalendar = Calendar.getInstance();
-			expenseCalendar.setTime(expense.getDueDate());
-			if (expenseCalendar.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)) {
+			LocalDate dueDate = expense.getDueDate();
+			if (dueDate.getYear() == year) {
 				subTotal += expense.getValue();
 			}
 		}
@@ -86,16 +84,16 @@ public class Management {
 	}
 
 	public Double getSubTotalIncome() {
-		return getSubTotalIncome(Calendar.getInstance());
+		return getSubTotalIncome(LocalDate.now());
 	}
 
-	public Double getSubTotalIncome(Calendar calendar) {
+	public Double getSubTotalIncome(LocalDate date) {
 		Double subTotal = 0.0;
+		int year = date.getYear();
+		Month month = date.getMonth();
 		for (Income income : incomes) {
-			Calendar incomeCalendar = Calendar.getInstance();
-			incomeCalendar.setTime(income.getDueDate());
-			if (incomeCalendar.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)
-					&& incomeCalendar.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
+			LocalDate dueDate = income.getDueDate();
+			if (dueDate.getYear() == year && dueDate.getMonth() == month) {
 				subTotal += income.getValue();
 			}
 		}
@@ -103,15 +101,15 @@ public class Management {
 	}
 
 	public Double getSubTotalIncomeYear() {
-		return getSubTotalIncomeYear(Calendar.getInstance());
+		return getSubTotalIncomeYear(LocalDate.now());
 	}
 
-	public Double getSubTotalIncomeYear(Calendar calendar) {
+	public Double getSubTotalIncomeYear(LocalDate date) {
 		Double subTotal = 0.0;
+		int year = date.getYear();
 		for (Income income : incomes) {
-			Calendar incomeCalendar = Calendar.getInstance();
-			incomeCalendar.setTime(income.getDueDate());
-			if (incomeCalendar.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)) {
+			LocalDate dueDate = income.getDueDate();
+			if (dueDate.getYear() == year) {
 				subTotal += income.getValue();
 			}
 		}
@@ -119,28 +117,28 @@ public class Management {
 	}
 
 	public Double getTotal() {
-		Calendar calendar = Calendar.getInstance();
-		double subTotalExpense = getSubTotalExpense(calendar);
-		double subTotalIncome = getSubTotalIncome(calendar);
+		LocalDate date = LocalDate.now();
+		double subTotalExpense = getSubTotalExpense(date);
+		double subTotalIncome = getSubTotalIncome(date);
 		return subTotalIncome - subTotalExpense;
 	}
 
-	public Double getTotal(Calendar calendar) {
-		Double subTotalExpense = getSubTotalExpense(calendar);
-		Double subTotalIncome = getSubTotalIncome(calendar);
+	public Double getTotal(LocalDate date) {
+		Double subTotalExpense = getSubTotalExpense(date);
+		Double subTotalIncome = getSubTotalIncome(date);
 		return subTotalIncome - subTotalExpense;
 	}
 
 	public Double getTotalYear() {
-		Calendar calendar = Calendar.getInstance();
-		double subTotalExpense = getSubTotalExpenseYear(calendar);
-		double subTotalIncome = getSubTotalIncomeYear(calendar);
+		LocalDate date = LocalDate.now();
+		double subTotalExpense = getSubTotalExpenseYear(date);
+		double subTotalIncome = getSubTotalIncomeYear(date);
 		return subTotalIncome - subTotalExpense;
 	}
 
-	public Double getTotalYear(Calendar calendar) {
-		Double subTotalExpense = getSubTotalExpenseYear(calendar);
-		Double subTotalIncome = getSubTotalIncomeYear(calendar);
+	public Double getTotalYear(LocalDate date) {
+		Double subTotalExpense = getSubTotalExpenseYear(date);
+		Double subTotalIncome = getSubTotalIncomeYear(date);
 		return subTotalIncome - subTotalExpense;
 	}
 
@@ -152,21 +150,20 @@ public class Management {
 		return incomes;
 	}
 
-	public List<Expense> getExpenseByMonth(Calendar calendar) {
+	public List<Expense> getExpenseByMonth(LocalDate date) {
 		List<Expense> aux = new ArrayList<>();
 		for (Expense expense : expenses) {
-			Calendar expenseCalendar = Calendar.getInstance();
-			expenseCalendar.setTime(expense.getDueDate());
-			if (expenseCalendar.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)
-					&& expenseCalendar.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
+
+			if (expense.getDueDate().getYear() == date.getYear()
+					&& expense.getDueDate().getMonthValue() == date.getMonthValue()) {
 				aux.add(expense);
 			}
 		}
 		return aux;
 	}
 
-	public List<Expense> getExpenseByCategory(Integer category, Calendar calendar) {
-		List<Expense> monthlyExpenses = getExpenseByMonth(calendar);
+	public List<Expense> getExpenseByCategory(Integer category, LocalDate date) {
+		List<Expense> monthlyExpenses = getExpenseByMonth(date);
 		List<Expense> aux = new ArrayList<>();
 		for (Expense expense : monthlyExpenses) {
 			if (expense.getCategory().equals(category)) {
@@ -176,21 +173,19 @@ public class Management {
 		return aux;
 	}
 
-	public List<Income> getIncomeByMonth(Calendar calendar) {
+	public List<Income> getIncomeByMonth(LocalDate date) {
 		List<Income> aux = new ArrayList<>();
 		for (Income income : incomes) {
-			Calendar incomeCalendar = Calendar.getInstance();
-			incomeCalendar.setTime(income.getDueDate());
-			if (incomeCalendar.get(Calendar.YEAR) == calendar.get(Calendar.YEAR)
-					&& incomeCalendar.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
+			if (income.getDueDate().getYear() == date.getYear()
+					&& income.getDueDate().getMonthValue() == date.getMonthValue()) {
 				aux.add(income);
 			}
 		}
 		return aux;
 	}
 
-	public List<Income> getIncomByCategory(Integer category, Calendar calendar) {
-		List<Income> monthlyIncomes = getIncomeByMonth(calendar);
+	public List<Income> getIncomByCategory(Integer category, LocalDate date) {
+		List<Income> monthlyIncomes = getIncomeByMonth(date);
 		List<Income> aux = new ArrayList<>();
 		for (Income income : monthlyIncomes) {
 			if (income.getCategory().equals(category)) {
@@ -202,7 +197,7 @@ public class Management {
 
 	// Update Methods
 	public void updateExpense(Integer id, Integer category, Integer transactionType, Double value, Integer installment,
-			Date dueDate, String description) {
+			LocalDate dueDate, String description) {
 		for (Expense expense : expenses) {
 			if (expense.getId().equals(id)) {
 				expense.setCategory(category);
@@ -217,7 +212,7 @@ public class Management {
 		}
 	}
 
-	public void updateExpense(Integer id, Integer category, Integer transactionType, Double value, Date dueDate,
+	public void updateExpense(Integer id, Integer category, Integer transactionType, Double value, LocalDate dueDate,
 			String description) {
 		for (Expense expense : expenses) {
 			if (expense.getId().equals(id)) {
@@ -232,7 +227,7 @@ public class Management {
 		}
 	}
 
-	public void updateIncome(Integer id, Integer category, Double value, Integer installment, Date dueDate,
+	public void updateIncome(Integer id, Integer category, Double value, Integer installment, LocalDate dueDate,
 			String description) {
 		for (Income income : incomes) {
 			if (income.getId().equals(id)) {
@@ -247,7 +242,7 @@ public class Management {
 		}
 	}
 
-	public void updateIncome(Integer id, Integer category, Double value, Date dueDate, String description) {
+	public void updateIncome(Integer id, Integer category, Double value, LocalDate dueDate, String description) {
 		for (Income income : incomes) {
 			if (income.getId().equals(id)) {
 				income.setCategory(category);

@@ -5,10 +5,7 @@
 package gui;
 
 import java.net.URL;
-import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -65,9 +62,9 @@ public class ExpenseViewController implements Initializable {
 			Integer instalment = Integer.parseInt(txtInstalment.getText());
 
 			// Converte o DatePicker para Date
-			LocalDate localDate = dpDueDate.getValue();
+			LocalDate dueDate = dpDueDate.getValue();
 
-			Date dueDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			
 
 			// Adiciona a despesa utilizando o método management.addExpense
 			management.addExpense(new Expense(category.getCode(), type.getCode(), value, instalment, dueDate,
