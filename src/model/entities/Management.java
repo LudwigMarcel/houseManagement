@@ -150,6 +150,10 @@ public class Management {
 		return incomes;
 	}
 
+	public List<Expense> getExpensesByMonth(){
+		return getExpenseByMonth(LocalDate.now());
+	}
+	
 	public List<Expense> getExpenseByMonth(LocalDate date) {
 		List<Expense> aux = new ArrayList<>();
 		for (Expense expense : expenses) {
@@ -173,6 +177,10 @@ public class Management {
 		return aux;
 	}
 
+	public List<Income> getIncomeByMonth(){
+		return getIncomeByMonth(LocalDate.now());
+	}
+	
 	public List<Income> getIncomeByMonth(LocalDate date) {
 		List<Income> aux = new ArrayList<>();
 		for (Income income : incomes) {

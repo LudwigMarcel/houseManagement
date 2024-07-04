@@ -1,7 +1,3 @@
-/*
- * modificar todas as datas to LocalDate
- */
-
 package gui;
 
 import java.net.URL;
@@ -64,8 +60,6 @@ public class ExpenseViewController implements Initializable {
 			// Converte o DatePicker para Date
 			LocalDate dueDate = dpDueDate.getValue();
 
-			
-
 			// Adiciona a despesa utilizando o método management.addExpense
 			management.addExpense(new Expense(category.getCode(), type.getCode(), value, instalment, dueDate,
 					txtDescription.getText()));
@@ -74,7 +68,7 @@ public class ExpenseViewController implements Initializable {
 		} catch (NumberFormatException e) {
 			System.err.println("Erro ao converter número: " + e.getMessage());
 			// Adicione uma mensagem de erro ou notificação para o usuário
-		} 
+		}
 	}
 
 	@FXML

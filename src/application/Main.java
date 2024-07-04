@@ -33,4 +33,8 @@ private static Scene mainScene;
 	public static Scene getMainScene() {
 		return mainScene;
 	}
+	
+	public static void main(String[] args) {
+        launch(args);
+    }
 }
