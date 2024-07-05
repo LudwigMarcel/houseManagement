@@ -27,8 +27,8 @@ public class Management {
 		if (expense.getInstallment() > 1) {
 			LocalDate dueDate = expense.getDueDate();
 			for (int i = 0; i < expense.getInstallment(); i++) {
-				expenses.add(new Expense(expense.getCategory(), expense.getTransactionType(), expense.getValue(),
-						expense.getInstallment(), dueDate, expense.getDescription()));
+				expenses.add(new Expense(expense.getId(), expense.getCategory(), expense.getTransactionType(),
+						expense.getValue(), expense.getInstallment(), dueDate, expense.getDescription()));
 				dueDate = dueDate.plusMonths(1);
 			}
 		} else {
@@ -41,7 +41,7 @@ public class Management {
 		if (income.getInstallment() > 1) {
 			LocalDate dueDate = income.getDueDate();
 			for (int i = 0; i < income.getInstallment(); i++) {
-				incomes.add(new Income(income.getCategory(), income.getValue(), income.getInstallment(), dueDate,
+				incomes.add(new Income(income.getId(),income.getCategory(), income.getValue(), income.getInstallment(), dueDate,
 						income.getDescription()));
 				dueDate = dueDate.plusMonths(1);
 			}
@@ -49,6 +49,28 @@ public class Management {
 			incomes.add(income);
 		}
 		saveToJson();
+	}
+
+	//Generate ID
+	public Integer getLastId() {
+		Integer lastId = 1;
+		for (Expense expense : expenses) {
+			Integer aux = expense.getId();
+			if (aux >= lastId) {
+				lastId = 1 + aux;
+			}
+		}
+		return lastId;
+	}
+	public Integer getLastIdIncome() {
+		Integer lastId = 1;
+		for (Income income : incomes) {
+			Integer aux = income.getId();
+			if (aux >= lastId) {
+				lastId = 1 + aux;
+			}
+		}
+		return lastId;
 	}
 
 	// Read Methods
@@ -152,10 +174,10 @@ public class Management {
 		return incomes;
 	}
 
-	public List<Expense> getExpenseByMonth(){
+	public List<Expense> getExpenseByMonth() {
 		return getExpenseByMonth(LocalDate.now());
 	}
-	
+
 	public List<Expense> getExpenseByMonth(LocalDate date) {
 		List<Expense> aux = new ArrayList<>();
 		for (Expense expense : expenses) {
@@ -179,10 +201,10 @@ public class Management {
 		return aux;
 	}
 
-	public List<Income> getIncomeByMonth(){
+	public List<Income> getIncomeByMonth() {
 		return getIncomeByMonth(LocalDate.now());
 	}
-	
+
 	public List<Income> getIncomeByMonth(LocalDate date) {
 		List<Income> aux = new ArrayList<>();
 		for (Income income : incomes) {
@@ -206,8 +228,8 @@ public class Management {
 	}
 
 	// Update Methods
-	public void updateExpense(Integer id, Category category, TransactionType transactionType, Double value, Integer installment,
-			LocalDate dueDate, String description) {
+	public void updateExpense(Integer id, Category category, TransactionType transactionType, Double value,
+			Integer installment, LocalDate dueDate, String description) {
 		for (Expense expense : expenses) {
 			if (expense.getId().equals(id)) {
 				expense.setCategory(category);
@@ -222,8 +244,8 @@ public class Management {
 		}
 	}
 
-	public void updateExpense(Integer id, Category category, TransactionType transactionType, Double value, LocalDate dueDate,
-			String description) {
+	public void updateExpense(Integer id, Category category, TransactionType transactionType, Double value,
+			LocalDate dueDate, String description) {
 		for (Expense expense : expenses) {
 			if (expense.getId().equals(id)) {
 				expense.setCategory(category);

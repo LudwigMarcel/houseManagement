@@ -64,12 +64,13 @@ public class ExpenseViewController implements Initializable {
 			// Converte o texto do TextField para Double e Integer
 			Double value = Double.parseDouble(txtValue.getText());
 			Integer instalment = Integer.parseInt(txtInstalment.getText());
+			Integer id = management.getLastId();
 
 			// Converte o DatePicker para Date
 			LocalDate dueDate = dpDueDate.getValue();
 
 			// Adiciona a despesa utilizando o método management.addExpense
-			management.addExpense(new Expense(category, type, value, instalment, dueDate, txtDescription.getText()));
+			management.addExpense(new Expense(id, category, type, value, instalment, dueDate, txtDescription.getText()));
 
 			stage.close();
 

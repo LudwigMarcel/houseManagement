@@ -8,8 +8,7 @@ import model.entities.enums.TransactionType;
 
 public class Expense {
 
-	private static Integer lastID = 0;
-	private Integer id;
+	private Integer id = 1;
 	private Category category;
 	private TransactionType transactionType;
 	private Double value;
@@ -21,9 +20,9 @@ public class Expense {
 	}
 
 	// Credit
-	public Expense(Category category, TransactionType transactionType, Double value, Integer installment, LocalDate dueDate,
+	public Expense(Integer id,Category category, TransactionType transactionType, Double value, Integer installment, LocalDate dueDate,
 			String description) {
-		this.id = ++lastID;
+		this.id = id;
 		this.category = category;
 		this.transactionType = transactionType;
 		this.value = value;
@@ -33,8 +32,8 @@ public class Expense {
 	}
 
 	// Debit
-	public Expense(Category category, TransactionType transactionType, Double value, LocalDate dueDate, String description) {
-		this.id = ++lastID;
+	public Expense(Integer id, Category category, TransactionType transactionType, Double value, LocalDate dueDate, String description) {
+		this.id =  id;
 		this.category = category;
 		this.transactionType = transactionType;
 		this.value = value;

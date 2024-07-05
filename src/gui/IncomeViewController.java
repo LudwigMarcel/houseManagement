@@ -42,7 +42,6 @@ public class IncomeViewController implements Initializable {
 	private Button btCancel;
 
 	private Management management;
-	
 
 	@FXML
 	public void onBtSaveAction() {
@@ -55,15 +54,16 @@ public class IncomeViewController implements Initializable {
 			// Converte o texto do TextField para Double e Integer
 			Double value = Double.parseDouble(txtValue.getText());
 			Integer instalment = Integer.parseInt(txtInstalment.getText());
+			Integer id = management.getLastIdIncome();
 
 			// Converte o DatePicker para Date
 			LocalDate dueDate = dpDueDate.getValue();
 
 			// Adiciona a despesa utilizando o método management.addExpense
-			management.addIncome(new Income(category, value, instalment, dueDate, txtDescription.getText()));
+			management.addIncome(new Income(id, category, value, instalment, dueDate, txtDescription.getText()));
 
 			stage.close();
-		
+
 		} catch (NumberFormatException e) {
 			Alerts.showAlert("Valor inválido", "Insira um valor válido '0.00'", null, AlertType.ERROR);
 		}

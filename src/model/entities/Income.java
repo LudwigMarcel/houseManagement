@@ -7,8 +7,7 @@ import model.entities.enums.Category;
 
 public class Income {
 
-	private static Integer lastID = 0;
-	private Integer id;
+	private Integer id = 1;
 	private Category category;
 	private Double value;
 	private Integer installment = 1;
@@ -19,8 +18,9 @@ public class Income {
 	}
 
 	// Credit
-	public Income(Category category, Double value, Integer installment, LocalDate dueDate, String description) {
-		this.id = ++lastID;
+	public Income(Integer id, Category category, Double value, Integer installment, LocalDate dueDate,
+			String description) {
+		this.id = id;
 		this.category = category;
 		this.value = value;
 		this.installment = installment;
@@ -29,8 +29,8 @@ public class Income {
 	}
 
 	// Debit
-	public Income(Category category, Double value, LocalDate dueDate, String description) {
-		this.id = ++lastID;
+	public Income(Integer id, Category category, Double value, LocalDate dueDate, String description) {
+		this.id = id;
 		this.category = category;
 		this.value = value;
 		this.dueDate = dueDate;
