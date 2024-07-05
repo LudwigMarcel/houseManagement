@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -127,16 +128,25 @@ public class MainViewController implements Initializable {
 		this.management = new Management();
 		updateTableView();
 	}
-	
+
 	@FXML
 	public void btUpdateTableByDate() {
 		this.management = new Management();
 		LocalDate dateFilter = dpCalendar.getValue();
+		labelShowValue(dateFilter);
 		obsExpense = FXCollections.observableArrayList(management.getExpenseByMonth(dateFilter));
 		obsIncome = FXCollections.observableArrayList(management.getIncomeByMonth(dateFilter));
 
 		tvExpense.setItems(obsExpense);
 		tvIncome.setItems(obsIncome);
+	}
+
+	public void labelShowValue(LocalDate date) {
+		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+
+		labelSubTotalExpense.setText(currencyFormat.format(management.getSubTotalExpense(date)));
+		labelSubTotalIncome.setText(currencyFormat.format(management.getSubTotalIncome(date)));
+		labelTotal.setText(currencyFormat.format(management.getTotal(date)));
 	}
 
 	private void createDialogForm(String absoluteName, Stage parentStage) {
@@ -160,6 +170,7 @@ public class MainViewController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		this.management = new Management();
+		labelShowValue(LocalDate.now());
 		updateTableView();
 		initializeNodes();
 
