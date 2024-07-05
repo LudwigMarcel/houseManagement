@@ -34,7 +34,7 @@ private static Scene mainScene;
 		return mainScene;
 	}
 	
-	public static void main(String[] args) {
-        launch(args);
+	public static void main(String[] args) {	
+		launch(args);
     }
 }

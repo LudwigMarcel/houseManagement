@@ -34,7 +34,7 @@
 								<MenuItem mnemonicParsing="false" text="Delete" />
 							</items>
 						</Menu>
-						<Menu fx:id="menuItemAbout" mnemonicParsing="false" text="Ajuda">
+						<Menu fx:id="menuItemAbout" mnemonicParsing="false" onAction="#onMenuItemAboutAction" text="Ajuda">
 							<items>
 								<MenuItem mnemonicParsing="false" text="Sobre" />
 							</items>
@@ -107,7 +107,7 @@
             <ToolBar layoutX="270.0" layoutY="26.0" prefHeight="40.0" prefWidth="666.0">
                <items>
                   <DatePicker fx:id="dpCalendar" promptText="Filtro por data" />
-                  <Button fx:id="btUpdateTableByDate" mnemonicParsing="false" onAction="#btUpdateTableByDate" text="⟳" />
+                  <Button fx:id="btUpdateTableByDate" mnemonicParsing="false" onAction="#onUpdateTableByDate" text="⟳" />
                </items>
             </ToolBar>
 			</children>

@@ -8,9 +8,11 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import gui.util.Alerts;
 import gui.util.Constraints;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
@@ -63,8 +65,7 @@ public class IncomeViewController implements Initializable {
 			stage.close();
 		
 		} catch (NumberFormatException e) {
-			System.err.println("Erro ao converter número: " + e.getMessage());
-			// Adicione uma mensagem de erro ou notificação para o usuário
+			Alerts.showAlert("Valor inválido", "Insira um valor válido '0.00'", null, AlertType.ERROR);
 		}
 	}
 

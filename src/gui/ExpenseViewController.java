@@ -9,6 +9,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import gui.util.Alerts;
 import gui.util.Constraints;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +18,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.entities.Expense;
 import model.entities.Management;
@@ -72,8 +74,7 @@ public class ExpenseViewController implements Initializable {
 			stage.close();
 
 		} catch (NumberFormatException e) {
-			System.err.println("Erro ao converter número: " + e.getMessage());
-			// Adicione uma mensagem de erro ou notificação para o usuário
+			Alerts.showAlert("Valor inválido", "Insira um valor válido '0.00'", null, AlertType.ERROR);
 		}
 	}
 

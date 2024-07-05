@@ -103,11 +103,11 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onMenuItemAboutAction() {
 		try {
-			File filePath = new File("/gui/about.pdf");
+			File filePath = new File("about.pdf");
 
 			Desktop.getDesktop().open(filePath);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Alerts.showAlert("Arquivo inexistente", "Arquivo inexistente", null, AlertType.ERROR);
 		}
 	}
 
@@ -126,11 +126,13 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onBtUpdateTableAction() {
 		this.management = new Management();
+		labelShowValue(LocalDate.now());
 		updateTableView();
 	}
 
 	@FXML
-	public void btUpdateTableByDate() {
+	public void onUpdateTableByDate() {
+		try {
 		this.management = new Management();
 		LocalDate dateFilter = dpCalendar.getValue();
 		labelShowValue(dateFilter);
@@ -139,6 +141,11 @@ public class MainViewController implements Initializable {
 
 		tvExpense.setItems(obsExpense);
 		tvIncome.setItems(obsIncome);
+		}
+		catch(NullPointerException e) {
+			Alerts.showAlert("Data Inválida", "Favor informe um data válida", null, AlertType.ERROR);
+		}
+		
 	}
 
 	public void labelShowValue(LocalDate date) {

@@ -9,9 +9,9 @@ module houseManagement {
 	//requires gson2;
 	requires java.desktop;
 	requires javafx.base;
-	requires javafx.controls;
+	requires transitive javafx.controls;
 	requires javafx.fxml;
-	requires javafx.graphics;
+	requires transitive javafx.graphics;
 	requires com.fasterxml.jackson.databind;
 	requires junit;
 	requires com.fasterxml.jackson.datatype.jsr310;
