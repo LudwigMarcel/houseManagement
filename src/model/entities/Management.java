@@ -5,6 +5,8 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.entities.enums.Category;
+import model.entities.enums.TransactionType;
 import util.JsonHandler;
 
 public class Management {
@@ -150,7 +152,7 @@ public class Management {
 		return incomes;
 	}
 
-	public List<Expense> getExpensesByMonth(){
+	public List<Expense> getExpenseByMonth(){
 		return getExpenseByMonth(LocalDate.now());
 	}
 	
@@ -204,7 +206,7 @@ public class Management {
 	}
 
 	// Update Methods
-	public void updateExpense(Integer id, Integer category, Integer transactionType, Double value, Integer installment,
+	public void updateExpense(Integer id, Category category, TransactionType transactionType, Double value, Integer installment,
 			LocalDate dueDate, String description) {
 		for (Expense expense : expenses) {
 			if (expense.getId().equals(id)) {
@@ -220,7 +222,7 @@ public class Management {
 		}
 	}
 
-	public void updateExpense(Integer id, Integer category, Integer transactionType, Double value, LocalDate dueDate,
+	public void updateExpense(Integer id, Category category, TransactionType transactionType, Double value, LocalDate dueDate,
 			String description) {
 		for (Expense expense : expenses) {
 			if (expense.getId().equals(id)) {
@@ -235,7 +237,7 @@ public class Management {
 		}
 	}
 
-	public void updateIncome(Integer id, Integer category, Double value, Integer installment, LocalDate dueDate,
+	public void updateIncome(Integer id, Category category, Double value, Integer installment, LocalDate dueDate,
 			String description) {
 		for (Income income : incomes) {
 			if (income.getId().equals(id)) {
@@ -250,7 +252,7 @@ public class Management {
 		}
 	}
 
-	public void updateIncome(Integer id, Integer category, Double value, LocalDate dueDate, String description) {
+	public void updateIncome(Integer id, Category category, Double value, LocalDate dueDate, String description) {
 		for (Income income : incomes) {
 			if (income.getId().equals(id)) {
 				income.setCategory(category);

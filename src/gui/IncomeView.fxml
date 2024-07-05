@@ -69,8 +69,8 @@
 						<Insets right="5.0" />
 					</GridPane.margin>
 				</TextField>
-				<Button fx:id="btSave" mnemonicParsing="false" text="Salvar" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-				<Button fx:id="btCancel" mnemonicParsing="false" text="Cancelar" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+				<Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+				<Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancelar" GridPane.columnIndex="4" GridPane.rowIndex="2" />
 				<MenuButton fx:id="mbCategory" mnemonicParsing="false" text="Categoria" GridPane.rowIndex="1">
 					<items>
 						<MenuItem mnemonicParsing="false" text="Comida" />

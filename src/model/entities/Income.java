@@ -1,14 +1,15 @@
 package model.entities;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
+
+import model.entities.enums.Category;
 
 public class Income {
 
 	private static Integer lastID = 0;
 	private Integer id;
-	private Integer category;
+	private Category category;
 	private Double value;
 	private Integer installment = 1;
 	private LocalDate dueDate;
@@ -18,7 +19,7 @@ public class Income {
 	}
 
 	// Credit
-	public Income(Integer category, Double value, Integer installment, LocalDate dueDate, String description) {
+	public Income(Category category, Double value, Integer installment, LocalDate dueDate, String description) {
 		this.id = ++lastID;
 		this.category = category;
 		this.value = value;
@@ -28,7 +29,7 @@ public class Income {
 	}
 
 	// Debit
-	public Income(Integer category, Double value, LocalDate dueDate, String description) {
+	public Income(Category category, Double value, LocalDate dueDate, String description) {
 		this.id = ++lastID;
 		this.category = category;
 		this.value = value;
@@ -40,11 +41,11 @@ public class Income {
 		return id;
 	}
 
-	public Integer getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(Integer category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 

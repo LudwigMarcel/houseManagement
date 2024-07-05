@@ -3,12 +3,15 @@ package model.entities;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import model.entities.enums.Category;
+import model.entities.enums.TransactionType;
+
 public class Expense {
 
 	private static Integer lastID = 0;
 	private Integer id;
-	private Integer category;
-	private Integer transactionType;
+	private Category category;
+	private TransactionType transactionType;
 	private Double value;
 	private Integer installment = 1;
 	private LocalDate dueDate;
@@ -18,7 +21,7 @@ public class Expense {
 	}
 
 	// Credit
-	public Expense(Integer category, Integer transactionType, Double value, Integer installment, LocalDate dueDate,
+	public Expense(Category category, TransactionType transactionType, Double value, Integer installment, LocalDate dueDate,
 			String description) {
 		this.id = ++lastID;
 		this.category = category;
@@ -30,7 +33,7 @@ public class Expense {
 	}
 
 	// Debit
-	public Expense(Integer category, Integer transactionType, Double value, LocalDate dueDate, String description) {
+	public Expense(Category category, TransactionType transactionType, Double value, LocalDate dueDate, String description) {
 		this.id = ++lastID;
 		this.category = category;
 		this.transactionType = transactionType;
@@ -43,19 +46,19 @@ public class Expense {
 		return id;
 	}
 
-	public Integer getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(Integer category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
-	public Integer getTransactionType() {
+	public TransactionType getTransactionType() {
 		return transactionType;
 	}
 
-	public void setTransactionType(Integer transactionType) {
+	public void setTransactionType(TransactionType transactionType) {
 		this.transactionType = transactionType;
 	}
 

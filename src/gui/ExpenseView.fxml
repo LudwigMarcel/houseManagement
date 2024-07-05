@@ -5,7 +5,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -60,7 +59,7 @@
 						<Font name="Arial Black" size="13.0" />
 					</font>
 				</Label>
-				<TextField fx:id="txtValue" GridPane.columnIndex="2" GridPane.rowIndex="1">
+				<TextField fx:id="txtValue" promptText="Valor a ser pago" GridPane.columnIndex="2" GridPane.rowIndex="1">
 					<GridPane.margin>
 						<Insets right="5.0" />
 					</GridPane.margin>
@@ -70,33 +69,15 @@
 						<Insets right="5.0" />
 					</GridPane.margin>
 				</TextField>
-				<TextField fx:id="txtDescription" GridPane.columnIndex="5" GridPane.rowIndex="1">
+				<TextField fx:id="txtDescription" promptText="Breve descrição " GridPane.columnIndex="5" GridPane.rowIndex="1">
 					<GridPane.margin>
 						<Insets right="5.0" />
 					</GridPane.margin>
 				</TextField>
 				<Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Salvar" GridPane.columnIndex="4" GridPane.rowIndex="2" />
 				<Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancelar" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-				<MenuButton fx:id="mbCategory" mnemonicParsing="false" text="Categoria" GridPane.rowIndex="1">
-					<items>
-						<MenuItem fx:id="miFood" mnemonicParsing="false" text="Comida" />
-						<MenuItem mnemonicParsing="false" text="Transporte" />
-						<MenuItem mnemonicParsing="false" text="Utilidades" />
-						<MenuItem mnemonicParsing="false" text="Salário" />
-						<MenuItem mnemonicParsing="false" text="Enterterimento" />
-						<MenuItem mnemonicParsing="false" text="Aluguel" />
-						<MenuItem mnemonicParsing="false" text="Vestuário" />
-						<MenuItem mnemonicParsing="false" text="Saúde" />
-						<MenuItem mnemonicParsing="false" text="Streaming" />
-						<MenuItem mnemonicParsing="false" text="Outros" />
-					</items>
-				</MenuButton>
-				<MenuButton fx:id="mbType" mnemonicParsing="false" text="Crédito/Débito" GridPane.columnIndex="1" GridPane.rowIndex="1">
-					<items>
-						<MenuItem fx:id="miCredit" mnemonicParsing="false" text="Crédito" />
-						<MenuItem mnemonicParsing="false" text="Débito" />
-					</items>
-				</MenuButton>
+				<MenuButton fx:id="mbCategory" mnemonicParsing="false" text="Categoria" GridPane.rowIndex="1" />
+				<MenuButton fx:id="mbType" mnemonicParsing="false" text="Crédito/Débito" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 				<DatePicker fx:id="dpDueDate" GridPane.columnIndex="4" GridPane.rowIndex="1">
 					<GridPane.margin>
 						<Insets right="5.0" />

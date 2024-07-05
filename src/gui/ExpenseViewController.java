@@ -1,9 +1,15 @@
+/*
+ * tratamento dos dados de imput
+ * atualizar tabela ao salvar nova despesa
+ */
+
 package gui;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import gui.util.Constraints;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -61,10 +67,10 @@ public class ExpenseViewController implements Initializable {
 			LocalDate dueDate = dpDueDate.getValue();
 
 			// Adiciona a despesa utilizando o método management.addExpense
-			management.addExpense(new Expense(category.getCode(), type.getCode(), value, instalment, dueDate,
-					txtDescription.getText()));
+			management.addExpense(new Expense(category, type, value, instalment, dueDate, txtDescription.getText()));
 
 			stage.close();
+
 		} catch (NumberFormatException e) {
 			System.err.println("Erro ao converter número: " + e.getMessage());
 			// Adicione uma mensagem de erro ou notificação para o usuário
@@ -80,6 +86,7 @@ public class ExpenseViewController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		this.management = new Management();
+		initializeNodes();
 
 		// Adiciona categorias ao MenuButton
 		for (Category category : Category.values()) {
@@ -95,6 +102,12 @@ public class ExpenseViewController implements Initializable {
 			mbType.getItems().add(item);
 		}
 
+	}
+
+	public void initializeNodes() {
+		Constraints.setTextFieldDouble(txtValue);
+		Constraints.setTextFieldInteger(txtInstalment);
+		Constraints.setTextFieldMaxLength(txtDescription, 100);
 	}
 
 }

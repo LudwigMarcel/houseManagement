@@ -2,7 +2,7 @@ package model.entities.enums;
 
 public enum TransactionType {
 
-	DEBIT(1), CREDIT(2);
+	Débito(1), Crédito(2);
 
 	private int code;
 

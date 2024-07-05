@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -21,9 +20,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -47,6 +46,10 @@ public class MainViewController implements Initializable {
 	private Button btNewIncome;
 	@FXML
 	private Button btUpdateTable;
+	@FXML
+	private Button btUpdateTableByDate;
+	@FXML
+	private DatePicker dpCalendar;
 
 	@FXML
 	private Label labelSubTotalExpense;
@@ -124,6 +127,17 @@ public class MainViewController implements Initializable {
 		this.management = new Management();
 		updateTableView();
 	}
+	
+	@FXML
+	public void btUpdateTableByDate() {
+		this.management = new Management();
+		LocalDate dateFilter = dpCalendar.getValue();
+		obsExpense = FXCollections.observableArrayList(management.getExpenseByMonth(dateFilter));
+		obsIncome = FXCollections.observableArrayList(management.getIncomeByMonth(dateFilter));
+
+		tvExpense.setItems(obsExpense);
+		tvIncome.setItems(obsIncome);
+	}
 
 	private void createDialogForm(String absoluteName, Stage parentStage) {
 		try {
@@ -151,8 +165,8 @@ public class MainViewController implements Initializable {
 
 	}
 
-	private void updateTableView() {
-		obsExpense = FXCollections.observableArrayList(management.getExpensesByMonth());
+	protected void updateTableView() {
+		obsExpense = FXCollections.observableArrayList(management.getExpenseByMonth());
 		obsIncome = FXCollections.observableArrayList(management.getIncomeByMonth());
 
 		tvExpense.setItems(obsExpense);
@@ -172,7 +186,7 @@ public class MainViewController implements Initializable {
 		tcIncomeCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
 		tcIncomeValue.setCellValueFactory(new PropertyValueFactory<>("value"));
 		tcIncomeInstallment.setCellValueFactory(new PropertyValueFactory<>("installment"));
-		tcIncomeDate.setCellValueFactory(new PropertyValueFactory<>("duaDate"));
+		tcIncomeDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
 		tcIncomeDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
 		// refer funcionalidade, nao funciona...
