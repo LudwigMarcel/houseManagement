@@ -40,6 +40,12 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemSave;
 	@FXML
 	private MenuItem menuItemAbout;
+	@FXML
+	private MenuItem menuItemEditExpense;
+	@FXML
+	private MenuItem menuItemEditIncome;
+	@FXML
+	private MenuItem menuItemDelete;
 
 	@FXML
 	private Button btNewExpense;
@@ -101,6 +107,25 @@ public class MainViewController implements Initializable {
 	}
 
 	@FXML
+	public void onMenuItemDeleteAction(ActionEvent event) {
+		Stage parentStage = Utils.currentStageSource(event);
+		createDialogForm("/gui/DeleteView.fxml", parentStage);
+
+	}
+
+	@FXML
+	public void onMenuItemEditExpenseAction(ActionEvent event) {
+		Stage parentStage = Utils.currentStage(event);
+		createDialogForm("/gui/EditViewExpense.fxml", parentStage);
+	}
+
+	@FXML
+	public void onMenuItemEditIncomeAction(ActionEvent event) {
+		Stage parentStage = Utils.currentStage(event);
+		createDialogForm("/gui/EditViewIncome.fxml", parentStage);
+	}
+
+	@FXML
 	public void onMenuItemAboutAction() {
 		try {
 			File filePath = new File("about.pdf");
@@ -133,19 +158,18 @@ public class MainViewController implements Initializable {
 	@FXML
 	public void onUpdateTableByDate() {
 		try {
-		this.management = new Management();
-		LocalDate dateFilter = dpCalendar.getValue();
-		labelShowValue(dateFilter);
-		obsExpense = FXCollections.observableArrayList(management.getExpenseByMonth(dateFilter));
-		obsIncome = FXCollections.observableArrayList(management.getIncomeByMonth(dateFilter));
+			this.management = new Management();
+			LocalDate dateFilter = dpCalendar.getValue();
+			labelShowValue(dateFilter);
+			obsExpense = FXCollections.observableArrayList(management.getExpenseByMonth(dateFilter));
+			obsIncome = FXCollections.observableArrayList(management.getIncomeByMonth(dateFilter));
 
-		tvExpense.setItems(obsExpense);
-		tvIncome.setItems(obsIncome);
-		}
-		catch(NullPointerException e) {
+			tvExpense.setItems(obsExpense);
+			tvIncome.setItems(obsIncome);
+		} catch (NullPointerException e) {
 			Alerts.showAlert("Data Inválida", "Favor informe um data válida", null, AlertType.ERROR);
 		}
-		
+
 	}
 
 	public void labelShowValue(LocalDate date) {
@@ -183,7 +207,7 @@ public class MainViewController implements Initializable {
 
 	}
 
-	protected void updateTableView() {
+	public void updateTableView() {
 		obsExpense = FXCollections.observableArrayList(management.getExpenseByMonth());
 		obsIncome = FXCollections.observableArrayList(management.getIncomeByMonth());
 

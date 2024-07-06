@@ -77,6 +77,9 @@ public class ExpenseViewController implements Initializable {
 		} catch (NumberFormatException e) {
 			Alerts.showAlert("Valor inválido", "Insira um valor válido '0.00'", null, AlertType.ERROR);
 		}
+		catch(IllegalArgumentException e) {
+			Alerts.showAlert("Dados faltantes", "Verifique a ausencia de dados", null, AlertType.ERROR);
+		}
 	}
 
 	@FXML
