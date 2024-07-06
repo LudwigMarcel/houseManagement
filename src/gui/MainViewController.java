@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import application.Main;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -202,8 +201,8 @@ public class MainViewController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		this.management = new Management();
 		labelShowValue(LocalDate.now());
-		updateTableView();
 		initializeNodes();
+		updateTableView();
 
 	}
 
@@ -231,13 +230,10 @@ public class MainViewController implements Initializable {
 		tcIncomeDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
 		tcIncomeDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-		// refer funcionalidade, nao funciona...
-		if (Main.getMainScene() != null) {
-			Stage stage = (Stage) Main.getMainScene().getWindow();
-			if (stage != null) {
-				tvExpense.prefHeightProperty().bind(stage.heightProperty());
-				tvIncome.prefHeightProperty().bind(stage.heightProperty());
-			}
-		}
+		// rever funcionalidade, nao funciona...
+		/*Stage stage = (Stage) Main.getMainScene().getWindow();
+		tvExpense.prefHeightProperty().bind(stage.heightProperty());
+		tvIncome.prefHeightProperty().bind(stage.heightProperty());*/
+
 	}
 }

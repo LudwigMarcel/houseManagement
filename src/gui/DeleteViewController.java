@@ -57,13 +57,14 @@ public class DeleteViewController implements Initializable {
 			AuxDelete deleteI = AuxDelete.valueOf(mbType.getText());
 
 			Integer id = Integer.parseInt(txtID.getText());
-			
+
 			if (auxExpense.stream().anyMatch(expense -> expense.getId() == id)
 					|| auxIncome.stream().anyMatch(income -> income.getId() == id)) {
-				
+
 				if (deleteE.toString().equals("Despesa")) {
 					management.deleteExpense(id);
 					stage.close();
+
 				}
 				if (deleteI.toString().equals("Entrada")) {
 					management.deleteIncome(id);

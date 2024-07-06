@@ -57,7 +57,7 @@ public class ExpenseViewController implements Initializable {
 		try {
 			Stage stage = (Stage) btSave.getScene().getWindow();
 
-			// Converte as entradas do MenuButton para Integer
+			// Converte as entradas do MenuButton para Category/TransactioType
 			Category category = Category.valueOf(mbCategory.getText());
 			TransactionType type = TransactionType.valueOf(mbType.getText());
 
@@ -74,13 +74,12 @@ public class ExpenseViewController implements Initializable {
 			LocalDate dueDate = dpDueDate.getValue();
 
 			// Adiciona a despesa utilizando o método management.addExpense
-			management
-					.addExpense(new Expense(id, category, type, value, instalment, dueDate, txtDescription.getText()));
+			management.addExpense(new Expense(id, category, type, value, instalment, dueDate, txtDescription.getText()));
 
 			stage.close();
 
 		} catch (NumberFormatException e) {
-			Alerts.showAlert("Valor inválido", "Insira um valor válido '0.00'", null, AlertType.ERROR);
+			Alerts.showAlert("Valor inválido", "Insira um valor válido", null, AlertType.ERROR);
 		} catch (IllegalArgumentException e) {
 			Alerts.showAlert("Dados faltantes", "Verifique a ausencia de dados", null, AlertType.ERROR);
 		}
@@ -105,7 +104,7 @@ public class ExpenseViewController implements Initializable {
 		}
 
 		// Adiciona tipos ao MenuButton
-		for (TransactionType type : TransactionType.values()) { // Supondo que você tenha um enum Type
+		for (TransactionType type : TransactionType.values()) {
 			MenuItem item = new MenuItem(type.name());
 			item.setOnAction(event -> mbType.setText(type.name()));
 			mbType.getItems().add(item);

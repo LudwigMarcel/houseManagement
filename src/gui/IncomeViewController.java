@@ -48,7 +48,7 @@ public class IncomeViewController implements Initializable {
 		try {
 			Stage stage = (Stage) btSave.getScene().getWindow();
 
-			// Converte as entradas do MenuButton para Integer
+			// Converte as entradas do MenuButton para Category
 			Category category = Category.valueOf(mbCategory.getText());
 
 			// Converte o texto do TextField para Double e Integer
@@ -70,7 +70,7 @@ public class IncomeViewController implements Initializable {
 			stage.close();
 
 		} catch (NumberFormatException e) {
-			Alerts.showAlert("Valor inválido", "Insira um valor válido '0.00'", null, AlertType.ERROR);
+			Alerts.showAlert("Valor inválido", "Insira um valor válido", null, AlertType.ERROR);
 		}
 	}
 
