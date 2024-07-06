@@ -31,12 +31,8 @@
 						</Menu>
 						<Menu mnemonicParsing="false" text="Editar">
 							<items>
-                        <Menu mnemonicParsing="false" text="Edição">
-                          <items>
-                              <MenuItem mnemonicParsing="false" text="Editar Despesa" />
-                            <MenuItem mnemonicParsing="false" text="Editar Entrada" />
-                          </items>
-                        </Menu>
+                        <MenuItem fx:id="menuItemEditExpense" mnemonicParsing="false" onAction="#onMenuItemEditExpenseAction" text="Editar Despesa" />
+                      <MenuItem fx:id="menuItemEditIncome" mnemonicParsing="false" onAction="#onMenuItemEditIncomeAction" text="Editar Entrada" />
 								<MenuItem fx:id="menuItemDelete" mnemonicParsing="false" onAction="#onMenuItemDeleteAction" text="Delete" />
 							</items>
 						</Menu>

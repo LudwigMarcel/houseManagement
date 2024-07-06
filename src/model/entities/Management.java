@@ -41,8 +41,8 @@ public class Management {
 		if (income.getInstallment() > 1) {
 			LocalDate dueDate = income.getDueDate();
 			for (int i = 0; i < income.getInstallment(); i++) {
-				incomes.add(new Income(income.getId(),income.getCategory(), income.getValue(), income.getInstallment(), dueDate,
-						income.getDescription()));
+				incomes.add(new Income(income.getId(), income.getCategory(), income.getValue(), income.getInstallment(),
+						dueDate, income.getDescription()));
 				dueDate = dueDate.plusMonths(1);
 			}
 		} else {
@@ -51,7 +51,7 @@ public class Management {
 		saveToJson();
 	}
 
-	//Generate ID
+	// Generate ID
 	public Integer getLastId() {
 		Integer lastId = 1;
 		for (Expense expense : expenses) {
@@ -62,6 +62,7 @@ public class Management {
 		}
 		return lastId;
 	}
+
 	public Integer getLastIdIncome() {
 		Integer lastId = 1;
 		for (Income income : incomes) {
@@ -230,59 +231,70 @@ public class Management {
 	// Update Methods
 	public void updateExpense(Integer id, Category category, TransactionType transactionType, Double value,
 			Integer installment, LocalDate dueDate, String description) {
-		for (Expense expense : expenses) {
-			if (expense.getId().equals(id)) {
-				expense.setCategory(category);
-				expense.setTransactionType(transactionType);
-				expense.setValue(value);
-				expense.setInstallment(installment);
-				expense.setDueDate(dueDate);
-				expense.setDescription(description);
-				saveToJson();
-				return;
+		if (installment > 1) {
+			Expense originalExpense = null;
+			for (Expense expense : expenses) {
+				if (expense.getId().equals(id)) {
+					originalExpense = expense;
+					break;
+				}
 			}
-		}
-	}
-
-	public void updateExpense(Integer id, Category category, TransactionType transactionType, Double value,
-			LocalDate dueDate, String description) {
-		for (Expense expense : expenses) {
-			if (expense.getId().equals(id)) {
-				expense.setCategory(category);
-				expense.setTransactionType(transactionType);
-				expense.setValue(value);
-				expense.setDueDate(dueDate);
-				expense.setDescription(description);
+			if (originalExpense != null) {
+				expenses.removeIf(expense -> expense.getId().equals(id));
+				for (int i = 0; i < installment; i++) {
+					Expense newExpense = new Expense(id, category, transactionType, value, installment, dueDate,
+							description);
+					expenses.add(newExpense);
+					dueDate = dueDate.plusMonths(1);
+				}
 				saveToJson();
-				return;
+			}
+		} else {
+			for (Expense expense : expenses) {
+				if (expense.getId().equals(id)) {
+					expense.setCategory(category);
+					expense.setTransactionType(transactionType);
+					expense.setValue(value);
+					expense.setInstallment(installment);
+					expense.setDueDate(dueDate);
+					expense.setDescription(description);
+					saveToJson();
+					return;
+				}
 			}
 		}
 	}
 
 	public void updateIncome(Integer id, Category category, Double value, Integer installment, LocalDate dueDate,
 			String description) {
-		for (Income income : incomes) {
-			if (income.getId().equals(id)) {
-				income.setCategory(category);
-				income.setValue(value);
-				income.setInstallment(installment);
-				income.setDueDate(dueDate);
-				income.setDescription(description);
-				saveToJson();
-				return;
+		if (installment > 1) {
+			Income originalIncome = null;
+			for (Income income : incomes) {
+				if (income.getId().equals(id)) {
+					originalIncome = income;
+					break;
+				}
 			}
-		}
-	}
-
-	public void updateIncome(Integer id, Category category, Double value, LocalDate dueDate, String description) {
-		for (Income income : incomes) {
-			if (income.getId().equals(id)) {
-				income.setCategory(category);
-				income.setValue(value);
-				income.setDueDate(dueDate);
-				income.setDescription(description);
+			if (originalIncome != null) {
+				incomes.removeIf(income -> income.getId().equals(id));
+				for (int i = 0; i < installment; i++) {
+					Income newIncome = new Income(id, category, value, installment, dueDate, description);
+					incomes.add(newIncome);
+					dueDate = dueDate.plusMonths(1);
+				}
 				saveToJson();
-				return;
+			}
+		} else {
+			for (Income income : incomes) {
+				if (income.getId().equals(id)) {
+					income.setCategory(category);
+					income.setValue(value);
+					income.setInstallment(installment);
+					income.setDueDate(dueDate);
+					income.setDescription(description);
+					saveToJson();
+					return;
+				}
 			}
 		}
 	}

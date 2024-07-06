@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="861.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.IncomeViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="115.0" prefWidth="861.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EditViewIncomeController">
 	<children>
 		<GridPane prefHeight="91.0" prefWidth="823.0">
 			<columnConstraints>
@@ -99,7 +99,7 @@
                   <Font name="Arial Black" size="13.0" />
                </font>
             </Label>
-            <TextField promptText="ID" GridPane.rowIndex="1">
+            <TextField fx:id="txtId" promptText="ID" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>

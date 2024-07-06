@@ -1,32 +1,29 @@
-/*
- * tratamento dos dados de imput
- * atualizar tabela ao salvar nova despesa
- */
-
 package gui;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import gui.util.Alerts;
 import gui.util.Constraints;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import model.entities.Expense;
+import model.entities.Income;
 import model.entities.Management;
 import model.entities.enums.Category;
-import model.entities.enums.TransactionType;
 
-public class ExpenseViewController implements Initializable {
+public class EditViewIncomeController implements Initializable {
 
+	@FXML
+	private TextField txtId;
 	@FXML
 	private MenuButton mbCategory;
 	@FXML
@@ -59,23 +56,25 @@ public class ExpenseViewController implements Initializable {
 
 			// Converte as entradas do MenuButton para Integer
 			Category category = Category.valueOf(mbCategory.getText());
-			TransactionType type = TransactionType.valueOf(mbType.getText());
 
 			// Converte o texto do TextField para Double e Integer
+			Integer id = Integer.parseInt(txtId.getText());
 			Double value = Double.parseDouble(txtValue.getText());
-
+			
 			if (txtInstalment.getText() == null || txtInstalment.getText().isEmpty()) {
 				txtInstalment.setText("1");
 			}
-			Integer instalment = Integer.parseInt(txtInstalment.getText());
-			Integer id = management.getLastId();
-
+			Integer installment = Integer.parseInt(txtInstalment.getText());
+			
 			// Converte o DatePicker para Date
 			LocalDate dueDate = dpDueDate.getValue();
 
-			// Adiciona a despesa utilizando o método management.addExpense
-			management
-					.addExpense(new Expense(id, category, type, value, instalment, dueDate, txtDescription.getText()));
+			// Atualiza a despesa com base no id informado, e verifica se é um id valido
+			List<Income> auxIncome = management.getIncomes();
+
+			if (auxIncome.stream().anyMatch(income -> income.getId() == id)) {
+				management.updateIncome(id, category, value, installment, dueDate, txtDescription.getText());
+			}
 
 			stage.close();
 
@@ -104,18 +103,12 @@ public class ExpenseViewController implements Initializable {
 			mbCategory.getItems().add(item);
 		}
 
-		// Adiciona tipos ao MenuButton
-		for (TransactionType type : TransactionType.values()) { // Supondo que você tenha um enum Type
-			MenuItem item = new MenuItem(type.name());
-			item.setOnAction(event -> mbType.setText(type.name()));
-			mbType.getItems().add(item);
-		}
-
 	}
 
 	public void initializeNodes() {
 		Constraints.setTextFieldDouble(txtValue);
 		Constraints.setTextFieldInteger(txtInstalment);
+		Constraints.setTextFieldInteger(txtId);
 		Constraints.setTextFieldMaxLength(txtDescription, 100);
 	}
 

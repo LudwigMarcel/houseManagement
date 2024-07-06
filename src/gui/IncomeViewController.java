@@ -53,7 +53,12 @@ public class IncomeViewController implements Initializable {
 
 			// Converte o texto do TextField para Double e Integer
 			Double value = Double.parseDouble(txtValue.getText());
+
+			if (txtInstalment.getText() == null || txtInstalment.getText().isEmpty()) {
+				txtInstalment.setText("1");
+			}
 			Integer instalment = Integer.parseInt(txtInstalment.getText());
+
 			Integer id = management.getLastIdIncome();
 
 			// Converte o DatePicker para Date

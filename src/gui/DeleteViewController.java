@@ -36,7 +36,6 @@ public class DeleteViewController implements Initializable {
 	private MenuButton mbType;
 
 	private Management management;
-	private MainViewController mvc;
 
 	@FXML
 	public void onBtCancelAction() {

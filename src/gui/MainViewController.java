@@ -115,13 +115,13 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	public void onMenuItemEditExpenseAction(ActionEvent event) {
-		Stage parentStage = Utils.currentStage(event);
+		Stage parentStage = Utils.currentStageSource(event);
 		createDialogForm("/gui/EditViewExpense.fxml", parentStage);
 	}
 
 	@FXML
 	public void onMenuItemEditIncomeAction(ActionEvent event) {
-		Stage parentStage = Utils.currentStage(event);
+		Stage parentStage = Utils.currentStageSource(event);
 		createDialogForm("/gui/EditViewIncome.fxml", parentStage);
 	}
 
