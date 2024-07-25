@@ -96,6 +96,5 @@ public class DeleteViewController implements Initializable {
 			item.setOnAction(event -> mbType.setText(delete.name()));
 			mbType.getItems().add(item);
 		}
-
 	}
 }
